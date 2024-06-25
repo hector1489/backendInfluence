@@ -1,15 +1,15 @@
 const express = require('express');
 const app = express();
-const PORT = process.env.PORT || 3000;
 const { Pool } = require('pg');
 const cors = require('cors');
 
+const PORT = process.env.PORT || 3000;
 
 const pool = new Pool({
-  user: 'username',
+  user: 'userpostgres',
   host: 'localhost',
   database: 'influence',
-  password: '',
+  password: 'passpostgress',
   port: 5432,
 });
 

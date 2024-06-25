@@ -1,11 +1,12 @@
 CREATE DATABASE  influence;
 
+\c influence
+
 CREATE TABLE registrados (
-    id  SERIAL,
-    name VARCHAR(100),
-    direction VARCHAR(200),
-    email VARCHAR(100),
-    instagram VARCHAR(100),
-    PRIMARY KEY(id)
-)
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    direction VARCHAR(200) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    instagram VARCHAR(100) NOT NULL
+);
 
