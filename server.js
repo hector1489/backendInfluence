@@ -5,12 +5,14 @@ const cors = require('cors');
 
 const PORT = process.env.PORT || 3000;
 
+
 const pool = new Pool({
-  user: 'userpostgres',
-  host: 'localhost',
-  database: 'influence',
-  password: 'passpostgress',
-  port: 5432,
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_DATABASE,
+  password: process.env.DB_PASSWORD,
+  port: parseInt(process.env.DB_PORT ?? '5432', 10),
+  allowExitOnIdle: true,
 });
 
 app.use(express.json());
@@ -53,3 +55,6 @@ app.post('/api/register', async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+
+
