@@ -1,10 +1,11 @@
 const express = require('express');
-const app = express();
+const axios = require('axios');
 const { Pool } = require('pg');
 const cors = require('cors');
+require('dotenv').config();
 
+const app = express();
 const PORT = process.env.PORT || 3000;
-
 
 const pool = new Pool({
   user: process.env.DB_USER,
@@ -18,21 +19,18 @@ const pool = new Pool({
 app.use(express.json());
 app.use(cors());
 
-// transbank payment
-app.post('/api/payments/transbank', (req, res) => {
-  // handle Transbank 
-  console.log('Transbank payment request:', req.body);
-  res.send({ message: 'Transbank payment processed' });
+// Transbank
+app.post('/api/payments/transbank', async (req, res) => {
+  try {
+    const response = await axios.post(process.env.TRANSBANK_PAYMENT_URL, req.body);
+    res.send(response.data);
+  } catch (error) {
+    console.error('Error processing Transbank payment:', error);
+    res.status(500).json({ error: 'Payment failed' });
+  }
 });
 
-// mercado Pago payment
-app.post('/api/payments/mercadopago', (req, res) => {
-  // handle Mercado Pago 
-  console.log('Mercado Pago payment request:', req.body);
-  res.send({ message: 'Mercado Pago payment processed' });
-});
-
-// registro de usuarios
+// Registro de usuarios
 app.post('/api/register', async (req, res) => {
   const { name, direction, email, instagram } = req.body;
 
@@ -55,6 +53,3 @@ app.post('/api/register', async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
-
-
-
