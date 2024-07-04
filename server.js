@@ -20,6 +20,7 @@ app.use(express.json());
 app.use(cors());
 
 // Transbank
+
 app.post('/api/payments/transbank', async (req, res) => {
   try {
     const response = await axios.post(process.env.TRANSBANK_PAYMENT_URL, req.body);
@@ -31,6 +32,7 @@ app.post('/api/payments/transbank', async (req, res) => {
 });
 
 // Registro de usuarios
+
 app.post('/api/register', async (req, res) => {
   const { name, direction, email, instagram } = req.body;
 
@@ -49,6 +51,7 @@ app.post('/api/register', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
